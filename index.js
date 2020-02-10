@@ -44,7 +44,7 @@ server.get('/api/users/:id', (req,res) => {
     db.findById(id)
         .then(user => {
             if(!user) {
-                res.status(404).json({errorMessage:"The user with the specified ID does not exist."})
+                res.status(404).json({message: "The user with the specified ID does not exist."})
             } else {
                 res.status(200).json(user)
             }
@@ -53,5 +53,23 @@ server.get('/api/users/:id', (req,res) => {
             res.status(500).json({errorMessage: "The user information could not be retrieved."})
         })
 })
+// Delete a user
+server.delete('/api/users/:id', (req,res) => {
+    const {id} = req.params;
+    db.remove(id)
+        .then(user => {
+            if(!user) {
+                res.status(404).json({message: "The user with the specified ID does not exist."})
+            } else {
+                res.status(200).json(user)
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({ errorMessage: "The user could not be removed" })
+        })
+})
+// Update a user
+
 const port = 5000;
 server.listen(port, () => console.log(`\n** API on port ${port} \n`));
