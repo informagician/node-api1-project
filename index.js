@@ -70,6 +70,26 @@ server.delete('/api/users/:id', (req,res) => {
         })
 })
 // Update a user
+server.put('/api/users/:id', (req,res) => {
+    const {id} = req.params;
+    const userInfo = req.body;
+    if (!userInfo.name || !userInfo.bio) {
+        res.status(400).json({ errorMessage: "Please provide name and bio for the user." })
+    } else {
+        db.update(id, userInfo)
+        .then(user => {
+            if(!user){
+                res.status(404).json({ message: "The user with the specified ID does not exist." })
+            } else {
+                res.status(200).json(user)
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ errorMessage: "The user information could not be modified." })
+        })
+    }
 
+})
 const port = 5000;
 server.listen(port, () => console.log(`\n** API on port ${port} \n`));
