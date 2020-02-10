@@ -9,6 +9,8 @@ server.get('/', (req,res) => {
     res.json({hello: 'API is working'})
 });
 
+
+// Add new user
 server.post('/api/users', (req,res) => {
     const userInfo = req.body;
     if(!userInfo.name || !userInfo.bio) {
@@ -23,5 +25,16 @@ server.post('/api/users', (req,res) => {
     }
 })
 
+// List Users
+server.get('/api/users', (req,res) => {
+    db.find()
+        .then(users => {
+            res.status(201).json(users)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({errorMessage:"The users information could not be retrieved."})
+        })
+})
 const port = 5000;
 server.listen(port, () => console.log(`\n** API on port ${port} \n`));
