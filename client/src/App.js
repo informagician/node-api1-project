@@ -8,9 +8,6 @@ const App = () => {
   const [ newUser, setNewUser ] = useState({})
   const [ userEdit, setUserEdit ] = useState({});
 
-  //console.log(users)
-  console.log(userEdit)
-  //console.log(newUser)
   useEffect(() => {
     axios
     .get(`http://localhost:5000/api/users`)
@@ -89,7 +86,7 @@ const App = () => {
         </p>
       ))}
       <h2>Edit Form</h2>
-      {userEdit.name != undefined ? (
+      {userEdit.name !== undefined ? (
         <>
         <input type="text" value={userEdit.name} onChange={handleEditChange} name="name"/>
         <input type="text" value={userEdit.bio} onChange={handleEditChange} name="bio"/>

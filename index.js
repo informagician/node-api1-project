@@ -1,4 +1,5 @@
 // implement your API here
+require('dotenv').config()
 const express = require('express');
 const db = require('./data/db.js');
 const cors = require('cors')
@@ -93,5 +94,5 @@ server.put('/api/users/:id', (req,res) => {
     }
 
 })
-const port = 5000;
+const port = process.env.PORT;
 server.listen(port, () => console.log(`\n** API on port ${port} \n`));
